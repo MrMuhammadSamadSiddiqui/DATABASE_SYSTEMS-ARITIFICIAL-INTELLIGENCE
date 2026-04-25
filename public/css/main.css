@@ -63,7 +63,7 @@ nav>div:nth-child(1){
     flex-direction: row;
     /* background-color: red; */
     gap: 1em;
-    width: 30%;
+    width: 30vw;
 
 }
 nav>div:nth-child(1)>div:nth-child(2)>p{
@@ -108,7 +108,13 @@ nav{
     /* padding: 0.5rem 0.5rem; */
 }
 nav>div:nth-child(2){
-    width: 15%;
+    width: 20vw;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    gap:0.5rem;
+    flex-direction: row;
 }
 
 /* Login button blue version code */
@@ -173,6 +179,7 @@ nav>div:nth-child(2)>a{
     text-decoration: none;
     color:var(--greyish);
     transition: transform 0.25s ease-in-out;
+    
 }
 nav>div:nth-child(2)>a:hover{
     color:var(--text);

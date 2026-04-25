@@ -49,6 +49,7 @@ CREATE TABLE students (
     grade_level_id  INT REFERENCES grade_levels(id) ON DELETE SET NULL,
     phone           VARCHAR(20),
     guardian_name   VARCHAR(100),
+    guardian_contact VARCHAR(20),
     created_at      TIMESTAMP DEFAULT NOW()
 );
 

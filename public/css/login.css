@@ -109,7 +109,7 @@ nav{
     /* padding: 0.5rem 0.5rem; */
 }
 nav>div:nth-child(2){
-    width: 20%;
+    width: 15vw;
     /* background-color: red; */
 }
 nav>div:nth-child(2)>a{
@@ -132,6 +132,10 @@ nav>div:nth-child(2)>a:hover{
     color:var(--text);
     transform: scale(1.05);
 
+}
+
+nav>div:nth-child(2)>a:active {
+    cursor: none;
 }
 
 

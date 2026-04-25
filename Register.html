@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Registration — VE Institute</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Basic layout spacing for the new field */
+    .field { margin-bottom: 15px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .full-width { grid-column: span 2; }
+    #custom-class-container {
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px dashed #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">VE</div>
+    <div>
+      <h1>Virtual Education Institute</h1>
+      <p>Student Registration Form</p>
+    </div>
+  </header>
+
+  <main>
+    <form id="reg-form">
+
+      <div class="card">
+        <h2>Personal Information</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Student Full Name <span class="req">*</span></label>
+            <input type="text" name="full_name" placeholder="e.g. Ahmed Ali" required />
+          </div>
+          <div class="field">
+            <label>Father's Name <span class="req">*</span></label>
+            <input type="text" name="father_name" placeholder="e.g. Muhammad Ali" required />
+          </div>
+          <div class="field">
+            <label>Date of Birth <span class="req">*</span></label>
+            <input type="date" name="date_of_birth" required />
+          </div>
+          <div class="field">
+            <label>Guardian's Contact Number <span class="req">*</span></label>
+            <input type="tel" name="guardian_contact" placeholder="+92 300 0000000" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Contact Details</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Student Contact Number <span class="optional">(optional)</span></label>
+            <input type="tel" name="student_contact" placeholder="+92 300 0000000" />
+          </div>
+          <div class="field"></div>
+          <div class="field">
+            <label>Country <span class="req">*</span></label>
+            <select name="country" required>
+              <option value="">Select country</option>
+              <option>Pakistan</option>
+              <option>United Kingdom</option>
+              <option>United Arab Emirates</option>
+              <option>Saudi Arabia</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>City <span class="req">*</span></label>
+            <input type="text" name="city" placeholder="e.g. Karachi" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Academic Information</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Education Board <span class="req">*</span></label>
+            <select name="education_board" required>
+              <option value="">Select board</option>
+              <option>O Level</option>
+              <option>A Level</option>
+              <option>IGCSE</option>
+              <option>Edexcel</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Class / Year <span class="req">*</span></label>
+            <select name="class_year" id="class_year_select" onchange="toggleCustomClass(this.value)" required>
+              <option value="">Select class</option>
+              <optgroup label="O Level">
+                <option>O Level – Year 1</option>
+                <option>O Level – Year 2</option>
+              </optgroup>
+              <optgroup label="A Level">
+                <option>A Level – Year 1 (AS)</option>
+                <option>A Level – Year 2 (A2)</option>
+              </optgroup>
+              <optgroup label="IGCSE">
+                <option>IGCSE – Year 1</option>
+                <option>IGCSE – Year 2</option>
+              </optgroup>
+              <optgroup label="Edexcel">
+                <option>Edexcel – Year 1</option>
+                <option>Edexcel – Year 2</option>
+              </optgroup>
+              <option value="other">Other (Please specify)</option>
+            </select>
+          </div>
+
+          <div class="field full-width" id="custom-class-container" style="display:none;">
+            <label>Specify your Class / Year <span class="req">*</span></label>
+            <input type="text" name="custom_class_year" id="custom_class_input" placeholder="e.g. Grade 9, University Year 1" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Siblings at VE Institute</h2>
+        <p class="section-note">Do you have any brother or sister currently studying at VE Institute?</p>
+
+        <div class="toggle-group" style="margin-bottom: 16px;">
+          <button type="button" class="toggle-btn active" id="sib-no" onclick="toggleSiblings(false)">No</button>
+          <button type="button" class="toggle-btn" id="sib-yes" onclick="toggleSiblings(true)">Yes</button>
+        </div>
+        <input type="hidden" name="has_sibling" id="has_sibling" value="no" />
+
+        <div id="siblings-container" style="display:none;">
+          <div id="sibling-list"></div>
+          <button type="button" class="add-btn" id="add-sibling-btn" onclick="addSibling()">
+            + Add Another Sibling
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">
+        Submit Application
+      </button>
+      <p class="note">* Required fields. Admin will contact you with your Roll Number and login details.</p>
+
+    </form>
+
+    <div id="success-msg" style="display:none;" class="success-card">
+      <div class="success-icon">&#10003;</div>
+      <h2>Application Submitted!</h2>
+      <p>Admin will review your application and contact you shortly with your Roll Number and login details.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Virtual Education Institute — All rights reserved</p>
+  </footer>
+
+  <script>
+    let siblingCount = 0;
+
+    // ── Toggle Custom Class Input ───────────────────────────────
+    function toggleCustomClass(value) {
+      const container = document.getElementById('custom-class-container');
+      const input = document.getElementById('custom_class_input');
+      
+      if (value === 'other') {
+        container.style.display = 'block';
+        input.required = true;
+      } else {
+        container.style.display = 'none';
+        input.required = false;
+        input.value = '';
+      }
+    }
+
+    // ── Yes / No Toggle ────────────────────────────────────────
+    function toggleSiblings(show) {
+      document.getElementById('siblings-container').style.display = show ? 'block' : 'none';
+      document.getElementById('has_sibling').value = show ? 'yes' : 'no';
+      document.getElementById('sib-yes').classList.toggle('active', show);
+      document.getElementById('sib-no').classList.toggle('active', !show);
+
+      if (show && siblingCount === 0) addSibling();
+    }
+
+    // ── Add Sibling Row ────────────────────────────────────────
+    function addSibling() {
+      siblingCount++;
+      const list = document.getElementById('sibling-list');
+      const entry = document.createElement('div');
+      entry.className = 'sibling-entry';
+      entry.id = `sibling-${siblingCount}`;
+
+      entry.innerHTML = `
+        <div class="sibling-header">
+          <span class="sibling-label">Sibling ${siblingCount}</span>
+          ${siblingCount > 1
+            ? `<button type="button" class="remove-btn" onclick="removeSibling(${siblingCount})">&#10005; Remove</button>`
+            : ''}
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" name="sibling_name_${siblingCount}" placeholder="e.g. Fatima Ali" />
+          </div>
+          <div class="field">
+            <label>Roll Number</label>
+            <input type="text" name="sibling_roll_${siblingCount}" placeholder="e.g. STU-2025-001" />
+          </div>
+        </div>
+      `;
+
+      list.appendChild(entry);
+      updateAddButton();
+    }
+
+    function removeSibling(id) {
+      const entry = document.getElementById(`sibling-${id}`);
+      if (entry) entry.remove();
+      renumber();
+      updateAddButton();
+      if (siblingCount === 0) toggleSiblings(false);
+    }
+
+    function renumber() {
+      const entries = document.querySelectorAll('.sibling-entry');
+      siblingCount = entries.length;
+      entries.forEach((entry, i) => {
+        const n = i + 1;
+        entry.id = `sibling-${n}`;
+        entry.querySelector('.sibling-label').textContent = `Sibling ${n}`;
+        const inputs = entry.querySelectorAll('input');
+        inputs[0].name = `sibling_name_${n}`;
+        inputs[1].name = `sibling_roll_${n}`;
+      });
+    }
+
+    function updateAddButton() {
+      const btn = document.getElementById('add-sibling-btn');
+      btn.style.display = siblingCount >= 5 ? 'none' : 'inline-block';
+    }
+
+    // ── Form Submit ────────────────────────────────────────────
+    document.getElementById('reg-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      // If "Other" class was selected, use the text from the input field instead
+      if (data.class_year === 'other') {
+        data.class_year = data.custom_class_year;
+      }
+      // Clean up the temporary field
+      delete data.custom_class_year;
+
+      // Collect siblings into clean array
+      const siblings = [];
+      for (let i = 1; i <= 5; i++) {
+        const name = data[`sibling_name_${i}`];
+        const roll = data[`sibling_roll_${i}`];
+        if (name || roll) siblings.push({ name: name || '', roll_number: roll || '' });
+        delete data[`sibling_name_${i}`];
+        delete data[`sibling_roll_${i}`];
+      }
+      data.siblings = siblings;
+
+      try {
+        const res = await fetch('http://localhost:5000/api/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          document.getElementById('reg-form').style.display = 'none';
+          document.getElementById('success-msg').style.display = 'block';
+        } else {
+          alert(result.error || 'Something went wrong. Please try again.');
+          btn.textContent = 'Submit Application';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('Cannot connect to server. Please try again later.');
+        btn.textContent = 'Submit Application';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

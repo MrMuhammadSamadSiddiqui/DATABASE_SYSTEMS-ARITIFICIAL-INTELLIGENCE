@@ -269,9 +269,8 @@ body:has(a:hover) #ring{
             border-radius: 12px;
             padding: 1.8rem 1rem;
             color: #fff;
-            cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
             font-family: inherit;
         }
 
@@ -290,7 +289,7 @@ body:has(a:hover) #ring{
         .role-btn .role-label {
             font-size: 0.65rem;
             letter-spacing: 0.2em;
-            text-transform: uppercase;
+            
             color: rgba(255,255,255,0.6);
         }
 
@@ -306,7 +305,6 @@ body:has(a:hover) #ring{
             background: none;
             border: none;
             color: rgba(255,255,255,0.4);
-            cursor: pointer;
             font-family: inherit;
             font-size: 0.7rem;
             letter-spacing: 0.15em;
@@ -362,6 +360,10 @@ body:has(a:hover) #ring{
             outline: none;
             box-sizing: border-box;
             transition: border-color 0.2s, background 0.2s;
+           
+        }
+        .form-input2{
+            padding-right: 37px;
         }
 
         .form-input::placeholder { color: rgba(255,255,255,0.2); }
@@ -370,6 +372,29 @@ body:has(a:hover) #ring{
             border-color: rgba(255,255,255,0.35);
             background: rgba(255,255,255,0.08);
         }
+
+
+        .input-box {
+    position: relative;
+}
+
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 30%;
+
+    /* transform: translateY(-50%); */
+    cursor: pointer;
+    color: var(--bright);
+    cursor:none;
+    transition: transform 0.25s ease-in-out;
+}
+.toggle-password:hover{
+    transform: scale(1.2);
+    color:var(--text)
+}
+
 
         .submit-btn {
             width: 100%;
@@ -383,7 +408,7 @@ body:has(a:hover) #ring{
             letter-spacing: 0.2em;
             box-shadow: 0 5px 25px var(--glow);
             font-weight: 900;
-            cursor: pointer;
+            
             margin-top: 1.5rem;
             transition: opacity 0.2s, transform 0.15s;
         }

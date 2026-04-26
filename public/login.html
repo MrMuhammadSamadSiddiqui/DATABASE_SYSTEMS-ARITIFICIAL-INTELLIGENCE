@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/public/css/login.css">
     <script src="/public/js/script.js" defer></script>
     <script src="/public/js/login.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
 </head>
 <body>
@@ -70,10 +71,14 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="teacher-pass">Password</label>
-                        <input class="form-input" type="password" id="teacher-pass" placeholder="Enter your password">
+                        <div class="input-box">
+                            <input class="form-input form-input2" type="password" id="teacher-pass" placeholder="Enter your password">
+                            <i class="fa-regular fa-eye-slash toggle-password" onclick="toggle_pass('teacher-pass',this)"></i>
+                    
+                        </div>
                     </div>
                     <p class="error-msg" id="teacher-error">Invalid ID or password. Please try again.</p>
-                    <button class="submit-btn" onclick="handleLogin('teacher')">Login</button>
+                    <button class="submit-btn" onclick="handleLogin('teacher')">LOGIN</button>
                 </div>
 
                 <!-- STEP 2: Student login -->
@@ -87,12 +92,16 @@
                         <label class="form-label" for="student-roll">Roll Number</label>
                         <input class="form-input" type="text" id="student-roll" placeholder="e.g. 2789-VE">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="student-pass">Password</label>
-                        <input class="form-input" type="password" id="student-pass" placeholder="Enter your password">
+                   <div class="form-group">
+                        <label class="form-label" for="teacher-pass">Password</label>
+                        <div class="input-box">
+                            <input class="form-input form-input2" type="password" id="teacher-pass" placeholder="Enter your password">
+                            <i class="fa-regular fa-eye-slash toggle-password" onclick="toggle_pass('teacher-pass',this)"></i>
+                    
+                        </div>
                     </div>
                     <p class="error-msg" id="student-error">Invalid roll number or password. Please try again.</p>
-                    <button class="submit-btn" onclick="handleLogin('student')">Login</button>
+                    <button class="submit-btn" onclick="handleLogin('student')">LOGIN</button>
                 </div>
 
             </div>

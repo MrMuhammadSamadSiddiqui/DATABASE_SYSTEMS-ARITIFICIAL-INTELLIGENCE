@@ -54,3 +54,18 @@
                 if (studentStep.classList.contains('active')) handleLogin('student');
             }
         });
+
+
+        function toggle_pass(id,b){
+            const a=document.getElementById(id)
+            if(a.type=='password'){
+                a.type='text';
+                b.classList.add('fa-eye-slash')
+                b.classList.remove('fa-eye')
+            }
+            else if(a.type=='text'){
+                a.type='password';
+                b.classList.remove('fa-eye-slash')
+                b.classList.add('fa-eye')
+            }
+        }

@@ -245,3 +245,50 @@ body:has(a:hover) #ring{
         padding-bottom: 0.5rem;
     }
 }
+ 
+.description {
+    padding: 3rem 6rem;
+    line-height: 1.6;
+}
+
+.description h1 {
+    color: var(--bright);
+    font-family: 'Orbitron', sans-serif;;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+}
+
+.description h2 {
+    color: var(--bright);
+    font-family: 'Orbitron', sans-serif;;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.description p {
+    color: var(--text);
+    font-family: Syne;
+    font-weight: 300;
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+}
+
+.description li {
+    color: var(--text);
+    font-family: Syne;
+    font-weight: 300;
+    font-size: 1rem;
+    list-style: none;
+    margin-bottom: 0.4rem;
+    padding-left: 1rem;
+}
+
+.description li::before {
+    content: '— ';
+    color: var(--bright);
+}

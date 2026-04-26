@@ -400,3 +400,79 @@ body:has(a:hover) #ring {
     color: var(--bright);
     text-transform: uppercase;
 }
+
+/* Container to hold both sides */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Left side (Text) takes 60% width */
+.hero-text {
+    flex: 1.2;
+}
+
+/* Right side (Image) takes 40% width */
+.hero-visual {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image Styling with Glow and Float */
+.image-orb {
+    position: relative;
+    width: 100%;
+}
+
+.image-orb img {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    filter: drop-shadow(0 0 30px var(--glow));
+    animation: floatImage 6s ease-in-out infinite;
+    border: 1px solid rgba(94,203,240,0.2);
+}
+
+@keyframes floatImage {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* vertically on mobile */
+@media (max-width: 1024px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-visual {
+        order: -1; /* Mobile par image text sa uppar aaye  */
+        width: 80%;
+    }
+}
+
+/* Buttons and Spans */
+.description h1 span {
+    color: var(--bright);
+    text-shadow: 0 0 15px var(--glow);
+}
+
+.register-btn {
+    display: inline-block;
+    background: var(--bright);
+    color: var(--midnight);
+    padding: 1rem 2rem;
+    font-family: 'Orbitron';
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 5px;
+    margin-top: 1rem;
+    box-shadow: 0 0 20px var(--glow);
+}

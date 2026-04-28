@@ -43,13 +43,29 @@
       const entry = document.createElement('div');
       entry.className = 'sibling-entry';
       entry.id = `sibling-${siblingCount}`;
-
-      entry.innerHTML = `
-        <div class="sibling-header">
-          <span style="font-weight:700; color:var(--primary-color);">Sibling #${siblingCount}</span>
-          ${siblingCount > 1 ? `<button type="button" class="remove-btn" onclick="removeSibling(${siblingCount})">✕ Remove</button>` : ''}
+       if(siblingCount>1){
+            entry.innerHTML+=`
+            <div style="opacity: 1; height: 0; border-top: 1px solid rgba(145,168,195,0.2);"></div>
+            <div class="sibling-header" style="margin-top:1rem; display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-weight:700; color:var(--primary-color); ">Sibling #${siblingCount}</span>
+        <a class="remove-btn" style="text-decoration:none;  display:flex; align-items:center; justify-content:center; " onclick="removeSibling(${siblingCount})"><i class="fa-solid fa-xmark"></i></a>
+        
+      
         </div>
-        <div class="grid-2">
+        `
+      }
+      else{
+
+      entry.innerHTML+=`
+      <div class="sibling-header" >
+    <span style="font-weight:700; color:var(--primary-color); ">Sibling #${siblingCount}</span>
+  </div>
+  `
+
+      }
+      
+      entry.innerHTML += `
+        <div class="grid-2" style="margin-bottom:1.5rem;" >
           <div class="field">
             <label>Full Name</label>
             <input type="text" name="sibling_name_${siblingCount}" placeholder="Full Name" />
@@ -63,6 +79,7 @@
       list.appendChild(entry);
       updateAddButton();
     }
+  
 
     function removeSibling(id) {
       const el = document.getElementById(`sibling-${id}`);

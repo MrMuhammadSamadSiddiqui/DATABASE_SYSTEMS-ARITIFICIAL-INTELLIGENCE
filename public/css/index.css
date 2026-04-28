@@ -164,8 +164,8 @@ nav > div:nth-child(2) > a:active {
     position: fixed;
     top: 0;
     left: 0;
-    width: 12px; /* Slightly larger cursor */
-    height: 12px;
+    width: 10px; /* Slightly larger cursor */
+    height: 10px;
     background: var(--bright);
     border-radius: 50%;
     z-index: 9999;
@@ -179,8 +179,8 @@ nav > div:nth-child(2) > a:active {
     position: fixed;
     top: 0;
     left: 0;
-    width: 42px; /* Slightly larger ring */
-    height: 42px;
+    width: 36px; /* Slightly larger ring */
+    height: 36px;
     border: 1px solid rgba(94, 203, 240, 0.5); /* Brighter ring */
     border-radius: 50%;
     z-index: 9999;
@@ -191,14 +191,14 @@ nav > div:nth-child(2) > a:active {
 }
 
 body:has(a:hover) #cursor {
-    width: 18px; /* Larger on hover */
-    height: 18px;
+    width: 14px; /* Larger on hover */
+    height: 14px;
     opacity: 1 !important; /* Force visible on hover */
 }
 
 body:has(a:hover) #ring {
-    width: 58px; /* Larger on hover */
-    height: 58px;
+    width: 40px; /* Larger on hover */
+    height: 40px;
     border-color: rgba(94, 203, 240, 0.8); /* Brighter on hover */
     opacity: 1 !important; /* Force visible on hover */
 }
@@ -229,13 +229,14 @@ body:has(a:hover) #ring {
 @media (max-width: 768px) {
     nav {
         flex-direction: column; /* Stack vertically on small screens */
-        align-items: flex-start;
+        align-items: center;
         gap: 1rem;
     }
     nav > div:nth-child(2) {
         width: 100%;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 1rem;
+        /* background-color: red; */
     }
     .line {
         margin: 0.5rem 0;

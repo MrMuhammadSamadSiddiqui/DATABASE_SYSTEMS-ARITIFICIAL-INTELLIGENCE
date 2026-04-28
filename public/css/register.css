@@ -9,7 +9,7 @@
 }
 
 *{
-    cursor:none;
+    cursor:none !important;
 }
 
 :root {
@@ -259,11 +259,25 @@ input:focus, select:focus {
     letter-spacing: 2px;
 }
 
-/*form main cursor glitch kar rha iss lia normal cursor use karainga form main*/
-* {
-    cursor: auto !important;
+
+
+
+
+@media (max-width:376px) {
+    main{
+        width: 100%;
+    }
+    .card{
+        width: auto;
+    }
+    input{
+        width: 70%;
+    }
 }
 
-input, select, button, a {
-    cursor: pointer !important;
+
+.remove-btn{
+    color:red;
 }
+
+

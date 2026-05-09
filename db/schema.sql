@@ -13,15 +13,13 @@
 -- ─── 2. TEACHERS ─────────────────────────────────────────────
 -- Roll number institute dega e.g. TCH-001
 -- Teacher khud login karega roll_number + password se
-
 CREATE TABLE teachers (
-    id              SERIAL PRIMARY KEY,  -- e.g. TCH-001 (admin assign karega)
-    full_name       VARCHAR(100) NOT NULL,
-    password        TEXT NOT NULL,                 -- bcrypt hashed
-    subject         VARCHAR(100),                  -- e.g. "Physics"
-    phone           VARCHAR(50),
-    created_at      TIMESTAMP DEFAULT NOW()
-    email           VARCHAR(50) unique
+    id VARCHAR(20) PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    password TEXT NOT NULL,
+    phone VARCHAR(50),
+    email VARCHAR(50) UNIQUE,
+    created_at TIMESTAMP DEFAULT NOW()
 );
 
 
@@ -90,111 +88,34 @@ CREATE TABLE register_students (
 
 
 
--- TRIGGER OF ADDING AND APPROVING STUDENTS
-
-CREATE OR REPLACE FUNCTION approve_student_trigger()
-RETURNS TRIGGER
-AS $$
-BEGIN
-    IF NEW.status = 'ACCEPTED'
-    AND OLD.status = 'PENDING'
-    THEN
-        INSERT INTO students(student_id,roll_no,password)
-        VALUES (
-            NEW.register_id,
-            'VE-' ||
-            LPAD(NEW.register_id::TEXT,3,'0'),
-            've' ||
-            LPAD(NEW.register_id::TEXT,3,'0')
-        );
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-
-CREATE OR REPLACE TRIGGER student_approval_trigger
-AFTER UPDATE OF status
-ON register_students
-FOR EACH ROW
-WHEN (OLD.status IS DISTINCT FROM NEW.status)
-EXECUTE FUNCTION approve_student_trigger();
-
-
--- TRIGGER OF REMVING SIBLING IF REJECTED 
-
-CREATE OR REPLACE FUNCTION remove_siblings_on_rejection()
-RETURNS TRIGGER
-AS $$
-BEGIN
-    IF NEW.status='REJECTED'
-    AND OLD.status<>'REJECTED'
-    THEN
-        DELETE FROM siblings
-        WHERE register_id=NEW.register_id;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE TRIGGER reject_student_trigger
-AFTER UPDATE OF status
-ON register_students
-FOR EACH ROW
-WHEN (OLD.status IS DISTINCT FROM NEW.status)
-EXECUTE FUNCTION remove_siblings_on_rejection();
-
-
-
-
 
 
 -- SIBLING
 
 CREATE TABLE siblings (
-
     sibling_id      SERIAL PRIMARY KEY,
-
     register_id     INT NOT NULL,
-
     sibling_name    VARCHAR(100) NOT NULL,
-
     sibling_class   VARCHAR(100),
-
     CONSTRAINT fk_student
         FOREIGN KEY (register_id)
         REFERENCES register_students(register_id)
         ON DELETE CASCADE
-
 );
 
 
+create table public.students (
+  student_id integer not null,
+  roll_no character varying(20) not null,
+  password character varying(500) not null,
+  accepted_at timestamp without time zone null default now(),
+  constraint students_pkey primary key (roll_no),
+  constraint students_student_id_key unique (student_id),
+  constraint fk_student_registration foreign KEY (student_id) references register_students (register_id) on delete CASCADE
+)
 
-CREATE TRIGGER DELTE_STUDENT AS 
-    after update on register_students 
-    begin 
 
-CREATE TABLE students (
 
-    student_id INT UNIQUE NOT NULL,
-
-    roll_no VARCHAR(20) PRIMARY KEY,
-
-    password VARCHAR(500) NOT NULL,
-
-    accepted_at TIMESTAMP DEFAULT NOW(),
-
-    CONSTRAINT fk_student_registration
-    FOREIGN KEY (student_id)
-    REFERENCES register_students(register_id)
-    ON DELETE CASCADE
-);
-
-CREATE TABLE SIBLINGS (
-   STUDENT_ID INT FK , 
-   SIBLING_ID  varchar(20) , 
-   primary key (STUDENT_ID , SIBLING_ID) 
-) ; 
 
 -- ─── 5. SUBJECTS ─────────────────────────────────────────────
 
@@ -220,20 +141,41 @@ INSERT INTO subjects (id ,name, grade_level_id) VALUES
     (1127 , 'Business Studies',  4);
 
 
+    
+
+
 -- ─── 6. COURSES ──────────────────────────────────────────────
 -- Har subject ka ek course — teacher assign hoga
 
 CREATE TABLE courses (
-    student_roll_number      varchar(20) references students(roll_no) , 
-    subject_id      INT REFERENCES subjects(id) ON DELETE SET NULL,
-    teacher_id      INT REFERENCES teachers(id) ON DELETE SET NULL,
-    is_published    BOOLEAN DEFAULT FALSE,
-    created_at      TIMESTAMP DEFAULT NOW()
+    id SERIAL PRIMARY KEY,
+    subject_id INT
+    teacher_id VARCHAR(20)
+    batch VARCHAR(50) NOT NULL,
+    academic_year INT NOT NULL,
+    is_published BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    student_count INT DEFAULT 0,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE SET NULL,
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE SET NULL,
+    UNIQUE (teacher_id, subject_id, academic_year)
 );
 
 
--- ─── 7. CHAPTERS ─────────────────────────────────────────────
 
+
+
+CREATE TABLE enrollments (
+    id SERIAL PRIMARY KEY,
+    student_roll_no VARCHAR(20),
+    course_id INT,
+    enrolled_at TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (student_roll_no) REFERENCES students(roll_no) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
+    UNIQUE(student_roll_no, course_id)
+);
+
+-- ─── 7. CHAPTERS ─────────────────────────────────────────────
 CREATE TABLE chapters (
     id          SERIAL PRIMARY KEY,
     course_id   INT REFERENCES courses(id) ON DELETE CASCADE,
@@ -313,6 +255,96 @@ CREATE TABLE progress (
     completed_at    TIMESTAMP,
     UNIQUE (student_id, material_id)
 );
+
+
+
+
+
+-- TRIGGERS AND PROCEDURES 
+
+
+-- TRIGGER OF ADDING AND APPROVING STUDENTS
+
+CREATE OR REPLACE FUNCTION approve_student_trigger()
+RETURNS TRIGGER
+AS $$
+BEGIN
+    IF NEW.status = 'ACCEPTED'
+    AND OLD.status = 'PENDING'
+    THEN
+        INSERT INTO students(student_id,roll_no,password)
+        VALUES (
+            NEW.register_id,
+            'VE-' ||
+            LPAD(NEW.register_id::TEXT,3,'0'),
+            've' ||
+            LPAD(NEW.register_id::TEXT,3,'0')
+        );
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE TRIGGER student_approval_trigger
+AFTER UPDATE OF status
+ON register_students
+FOR EACH ROW
+WHEN (OLD.status IS DISTINCT FROM NEW.status)
+EXECUTE FUNCTION approve_student_trigger();
+
+
+-- TRIGGER OF REMOVING SIBLING IF REJECTED 
+
+CREATE OR REPLACE FUNCTION remove_siblings_on_rejection()
+RETURNS TRIGGER
+AS $$
+BEGIN
+    IF NEW.status='REJECTED'
+    AND OLD.status<>'REJECTED'
+    THEN
+        DELETE FROM siblings
+        WHERE register_id=NEW.register_id;
+        DELETE FROM siblings
+        WHERE sibling_id=NEW.register_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER reject_student_trigger
+AFTER UPDATE OF status
+ON register_students
+FOR EACH ROW
+WHEN (OLD.status IS DISTINCT FROM NEW.status)
+EXECUTE FUNCTION remove_siblings_on_rejection();
+
+
+-- STUDENT LEAVE FROM INSTITUTE 
+
+CREATE OR REPLACE FUNCTION remove_students()
+RETURNS TRIGGER 
+AS $$
+BEGIN 
+        UPDATE register_students
+        SET status='LEFT'
+        WHERE register_id=OLD.student_id;
+        DELETE FROM siblings
+        WHERE register_id=OLD.student_id;
+        DELETE FROM siblings
+        WHERE sibling_id=OLD.student_id;
+        RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER remove_student_fun
+AFTER DELETE 
+ON students
+FOR EACH ROW    
+EXECUTE FUNCTION remove_students()
+
+
+
 
 
 -- ============================================================

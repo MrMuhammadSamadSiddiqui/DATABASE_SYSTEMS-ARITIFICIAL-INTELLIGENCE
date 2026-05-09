@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — VEI NEXUS</title>
     <link rel="stylesheet" href="/public/css/login.css">
-    <script src="/public/js/script.js" defer></script>
+    <script type="module" src="/public/js/script.js" defer></script>
     <script src="/public/js/login.js" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
 </head>
@@ -90,7 +91,7 @@
                     </h2>
                     <div class="form-group">
                         <label class="form-label" for="student-roll">Roll Number</label>
-                        <input class="form-input" type="text" id="student-roll" placeholder="e.g. 2789-VE">
+                        <input class="form-input" type="text" id="student-roll" placeholder="e.g. VE-101">
                     </div>
                    <div class="form-group">
                         <label class="form-label" for="teacher-pass">Password</label>
@@ -107,5 +108,7 @@
             </div>
         </div>
     </main>
+    <div id="msg-box"></div>
+
 </body>
 </html>

@@ -263,24 +263,6 @@ input:focus, select:focus {
 
 
 
-
-@media (max-width:376px) {
-    main{
-        width: 100%;
-    }
-    .card{
-        width: auto;
-    }
-    input{
-        width: 70%;
-    }
-}
-
-
-.remove-btn{
-    color:red;
-}
-
 #msg-box{
     position: fixed;
     top: 20px;
@@ -322,6 +304,29 @@ input:focus, select:focus {
 #msg-box.success i{
     color:#22B33A;
 }
+
+
+
+
+
+@media (max-width:376px) {
+    main{
+        width: 100%;
+    }
+    .card{
+        width: auto;
+    }
+    input{
+        width: 70%;
+    }
+}
+
+
+.remove-btn{
+    color:red;
+}
+
+
 
 
 input[type="date"]::-webkit-calendar-picker-indicator{

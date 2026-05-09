@@ -1,4 +1,5 @@
 
+
 let started = false;
 let cursor=document.getElementById('cursor')
 let ring=document.getElementById('ring')
@@ -42,3 +43,7 @@ let ry=0;
     ring.style.top  = ry + 'px';
     requestAnimationFrame(loop);
 })();
+
+
+   
+    

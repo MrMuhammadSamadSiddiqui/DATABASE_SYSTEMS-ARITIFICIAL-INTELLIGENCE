@@ -1,0 +1,595 @@
+/* ============================================
+   VEI NEXUS — Teacher Dashboard CSS
+   teacher.css
+   ============================================ */
+
+
+
+/* ── Variables ── */
+:root {
+    --midnight: #0A111E;
+    --bright:   #5ECBF0;
+    --glow:     rgba(94, 203, 240, 0.18);
+    --text:     #E8F1FA;
+    --greyish:  #637D96;
+    --danger:   #ff4d4d;
+    --danger-glow: rgba(255, 77, 77, 0.15);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Syne' !important;
+}
+
+html, body{
+    height:100%;
+    overflow:hidden;
+}
+
+body.teacher-page {
+    background-color: var(--midnight);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow: hidden;
+    cursor: auto;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+/* ── Background Grid ── */
+.bg_grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(94, 203, 240, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 203, 240, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Background Watermark ── */
+.bg_watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background-image: url('/public/assets/images/logo_white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ── Wrapper ── */
+.dashboard-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    
+    height:100vh;
+
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.sidebar {
+    width: 15rem;
+    flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.92);
+    border-right: 1px solid rgba(94, 203, 240, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+    
+}
+
+/* Logo + title */
+.sidebar-header {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* text-align: center; */
+    /* justify-items: center; */
+    /* gap: 1rem; */
+    border-bottom: 1px solid ;
+    border-color: rgba(94, 203, 240, 0.1);
+    /* background-color: pink; */
+    
+    
+    
+}
+
+.sidebar-header img {
+    /* background-color: green; */
+    width: 8vw;
+    filter: drop-shadow(0 0 10px var(--bright));
+    
+}
+
+.sidebar-header h2 {
+    
+    /* background-color: red; */
+    font-family: 'Orbitron';
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--text);
+      margin:0;
+}
+
+/* Nav links */
+.nav-links {
+    list-style: none;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-links li button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'syne';
+    font-size:1rem;
+    letter-spacing: 0.12em;
+    color: var(--greyish);
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid ;
+    border-color: rgba(94, 203, 240, 0.1);
+
+    transition: color 0.3s, background 0.3s, border-color 0.3s;
+    background-color: transparent;
+}
+
+.nav-links li button:hover {
+    color: var(--bright);
+    background: rgba(94, 203, 240, 0.05);
+    border-color: rgba(94, 203, 240, 0.1);
+    text-shadow: 0 0 10px var(--glow);
+}
+
+.nav-links li.active button {
+    color: var(--bright);
+    background: rgba(94, 203, 240, 0.07);
+    border-color: rgba(94, 203, 240, 0.15);
+    text-shadow: 0 0 10px var(--glow);
+}
+
+/* Nav icons */
+.nav-links li a svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    stroke: currentColor;
+}
+
+/* Teacher info + logout — bottom of sidebar */
+.sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.teacher-profile-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.teacher-profile-mini span:first-child {
+    font-family: 'Syne';
+    font-size: 5rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.05em;
+}
+
+.teacher-profile-mini span:last-child {
+    font-family: 'Syne';
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--greyish);
+}
+
+.logout-btn {
+    display: block;
+    text-decoration: none;
+    font-family: 'Syne';
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    color: var(--greyish);
+    border: 1px solid rgba(94, 203, 240, 0.1);
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-align: center;
+    transition: color 0.3s, border-color 0.3s, background 0.3s, text-shadow 0.3s;
+}
+
+.logout-btn:hover {
+    color: var(--danger);
+    border-color: rgba(255, 77, 77, 0.3);
+    background: var(--danger-glow);
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
+.content-container {
+    flex:1;
+    overflow-y:auto;
+    height:100vh;
+    display:flex;
+    flex-direction:column;   
+    
+}
+
+.content-container.profile-mode{
+    align-items:center;
+    justify-content:center;
+}
+
+/* ── Top Header Bar ── */
+.top-header {
+    padding: 36px 50px 20px;
+    border-bottom: 1px solid rgba(94, 203, 240, 0.06);
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-label {
+    font-family: 'Orbitron';
+    font-size: 1rem;
+    letter-spacing: 0.35em;
+    color: var(--greyish);
+    text-transform: uppercase;
+}
+
+/* Teacher name — right side of top bar */
+.teacher-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.teacher-name {
+    
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--text);
+}
+
+.teacher-id {
+    
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--greyish);
+}
+
+/* ── Dashboard Grid ── */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 30px;
+    padding: 28px 50px 50px;
+    flex: 1;
+    
+    width: 100%;
+}
+
+
+
+
+
+
+/* ============================================
+   CARDS
+   ============================================ */
+.nexus-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(94, 203, 240, 0.12);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 18px;
+    transition: border-color 0.3s;
+}
+
+.nexus-card:hover {
+    border-color: rgba(94, 203, 240, 0.22);
+}
+
+.widget-title {
+    font-family: 'Syne';
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--bright);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+}
+
+/* ── Course Cards ── */
+.course-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card-details h4 {
+    font-family: 'Orbitron';
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.card-details p {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--greyish);
+    font-family: Syne;
+}
+
+/* ── Section Title ── */
+.section-title {
+    font-family: 'Orbitron';
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--greyish);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.action-btn {
+    background: var(--bright);
+    color: var(--midnight);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Orbitron';
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    transition: box-shadow 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateX(-100%) skewX(-14deg);
+    transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+
+.action-btn:hover::before {
+    transform: translateX(110%) skewX(-14deg);
+}
+
+.action-btn:hover {
+    box-shadow: 0 0 20px rgba(94, 203, 240, 0.5);
+    transform: translateY(-1px);
+}
+
+.join-btn {
+    background: var(--bright);
+    color: var(--midnight);
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Orbitron';
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    box-shadow: 0 0 15px var(--glow);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.join-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(94, 203, 240, 0.5);
+}
+
+/* ============================================
+   ANNOUNCEMENT BOX
+   ============================================ */
+.info-anouncement_box {
+    background: rgba(94, 203, 240, 0.05);
+    border: 1px solid rgba(94, 203, 240, 0.15);
+    border-left: 3px solid var(--bright);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+}
+
+.info-anouncement_box small {
+    display: block;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    color: var(--bright);
+    opacity: 0.7;
+    margin-bottom: 6px;
+    font-family: 'Orbitron';
+}
+
+.info-anouncement_box p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+/* ============================================
+   LIVE SESSION BOX
+   ============================================ */
+.info-live_session_box {
+    background: rgba(94, 203, 240, 0.04);
+    border: 1px solid rgba(94, 203, 240, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-live_session_box::before {
+    content: '● LIVE';
+    font-family: 'Orbitron';
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    color: var(--danger);
+}
+
+.info-live_session_box strong {
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+}
+
+.info-live_session_box p {
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--greyish);
+}
+
+
+
+
+
+
+
+/* CURSOR AND RING  */
+
+#cursor{
+      position: fixed; 
+      top: 0; 
+      left: 0;
+      width: 10px; 
+      height: 10px;
+      background: var(--bright);
+      border-radius: 50%;
+      z-index: 9999;
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: screen;
+    }
+    #ring{
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        width: 36px; 
+        height: 36px;
+        border: 1px solid rgba(94,203,240,0.45);
+        border-radius: 50%;
+        z-index: 9999;
+        transform: translate(-35%,-35%);
+      transition: width .3s, height .3s, border-color .3s;
+      pointer-events: none;
+}
+#cursor, #ring {
+  opacity: 0;
+  transition: opacity .3s, width .2s, height .2s;
+}
+body:has(a:hover) #cursor{
+    width: 14px; 
+    height: 14px;
+}
+body:has(a:hover) #ring{
+      width: 40px; 
+      height: 40px;
+      border-color: rgba(94,203,240,0.7);
+}
+
+
+
+/* ── Teacher Profile Section ── */
+.teacher-profile-card {
+    /* max-width: 580px; */
+    width: 80%;
+    
+
+}
+
+.profile-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(94, 203, 240, 0.06);
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.profile-label {
+    
+    font-size: 0.9rem;
+    letter-spacing: 0.25em;
+    color: var(--greyish);
+}
+
+.profile-value {
+    
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--text);
+}
+
+
+.sec{
+   display:none;
+} 
+
+.sec.active{
+   display:block;
+} 
+
+
+.parent{
+    /* background-color: red; */
+    width: 100%;
+    
+}
+

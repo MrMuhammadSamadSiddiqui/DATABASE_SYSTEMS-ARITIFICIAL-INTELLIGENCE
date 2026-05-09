@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard — VEI NEXUS</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/teacher.css">
+    <script type="module" src="/public/js/script.js" defer></script>
+    <script src="/public/js/teacher.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="bg_grid"></div>
+    <div class="bg_watermark"></div>
+
+      <div id="cursor"></div>
+    <div id="ring"></div>
+
+    <div class="dashboard-wrapper">
+
+        <!-- LEFT SIDEBAR -->
+        <nav class="sidebar" >
+            <div class="sidebar-header">
+                <img src="/public/assets/images/logo_white.png" alt="VEI Logo">
+                <!-- <h2>VEI NEXUS</h2> -->
+            </div>
+
+            <ul class="nav-links" >
+                <li><button class="profile_btn" onclick="showsection('profile')">PROFILE</button></li>
+                <li><button class="course_btn" onclick="showsection('courses')" >COURSES</button></li>
+            </ul>
+
+            <!-- Logout pushed to bottom -->
+            <div class="section">
+                <a href="#" onclick="logout()" class="logout-btn">LOGOUT</a>
+            </div>
+        </nav>
+
+        <div class="parent">
+
+            <header class="top-header">
+                <div class="top-bar">
+                    <span class="page-label">DASHBOARD</span>
+                    <div class="teacher-identity">
+                        <span class="teacher-name"></span>
+                        <span class="teacher-id"></span>
+                    </div>
+                </div>
+            </header>
+            <!-- RIGHT CONTENT -->
+            <div class=" content-container" >
+    
+                <!-- TOP BAR — teacher name on right -->
+    
+                <!-- MAIN GRID -->
+                <div id="courses" class=" sec dashboard-grid">
+                    <main class="main-feed">
+                        <div class="course-list">
+                            
+    
+                            <!-- <div class="nexus-card course-item">
+                                <div class="card-details">
+                                    <h4>A-Level Physics</h4>
+                                    <p>18 Students Enrolled</p>
+                                </div>
+                                <button class="action-btn">MANAGE COURSE</button>
+                            </div> -->
+                        </div>
+                    </main>
+    
+                    <!-- <aside class="right-widgets">
+                        <div class="nexus-card widget">
+                            <h3 class="widget-title">ANNOUNCEMENTS</h3>
+                            <div class="info-anouncement_box">
+                                <small>TODAY</small>
+                                <p>Quiz submissions deadline is Friday 5PM.</p>
+                            </div>
+                        </div>
+    
+                        <div class="nexus-card widget">
+                            <h3 class="widget-title">LIVE SESSIONS</h3>
+                            <div class="info-live_session_box">
+                                <strong>O-Level Physics</strong>
+                                <p>Scheduled in 10 mins</p>
+                                <a href="#" class="join-btn">START CLASS</a>
+                            </div>
+                        </div>
+                    </aside> -->
+                </div>
+    
+            <div id="profile" class=" sec nexus-card teacher-profile-card">
+            <h3 class="widget-title">TEACHER PROFILE</h3>
+            <div class="profile-grid">
+                <div class="profile-row">
+                    <span  class="profile-label">ID</span>
+                    <span id="teacher-id" class="profile-value"></span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">NAME</span>
+                    <span id="teacher-name" class="profile-value"></span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">EMAIL</span>
+                    <span id="teacher-email" class="profile-value"></span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">PHONE</span>
+                        <span id="teacher-phone" class="profile-value"></span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="profile-label">JOINED</span>
+                        <span id="teacher-joined" class="profile-value"></span>
+                    </div>
+                </div>
+            </div>
+    
+            </div>
+        </div>
+    </div>
+</body>
+</html>

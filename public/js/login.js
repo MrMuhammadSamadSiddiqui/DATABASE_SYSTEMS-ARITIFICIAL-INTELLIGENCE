@@ -1,4 +1,17 @@
-    function selectRole(role) {
+ function showMessage(message,type='error'){           
+    const box =document.getElementById('msg-box')
+    box.textContent = message
+    box.className =`show ${type}`
+    if(type=='success'){
+      box.innerHTML+=`<i class="fa-solid fa-check"></i>`
+    }
+    else{
+      box.innerHTML+=`<i class="fa-solid fa-x"></i>`
+    }
+    // setTimeout(()=>{box.classList.remove('show')},3000)
+    }
+
+function selectRole(role) {
             document.getElementById('step-role').classList.remove('active');
             document.getElementById('step-' + role).classList.add('active');
         }
@@ -11,7 +24,7 @@
             document.getElementById('step-role').classList.add('active');
         }
 
-        function handleLogin(role) {
+        async function handleLogin(role) {
             if (role === 'teacher') {
                 const id = document.getElementById('teacher-id').value.trim();
                 const pass = document.getElementById('teacher-pass').value.trim();
@@ -23,25 +36,57 @@
                     return;
                 }
 
-                // TODO: Replace with your actual authentication logic / API call
-                // Example: fetch('/api/teacher-login', { method: 'POST', body: JSON.stringify({ id, pass }) })
-                err.style.display = 'none';
-                alert('Teacher login submitted! Connect to your backend here.');
+                 const body={
+                    id,
+                    pass
+                }
+                const response=await fetch( 'http://localhost:3000/login_teacher',{
+                    method:"POST",
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(body)
+                })
+    
+                const data=await response.json()
+            
+                if(response.ok){
+                    localStorage.setItem('teacher',JSON.stringify(data.teacher));
+                    showMessage(data.message,'success')
+                    setTimeout(()=>{window.location.href="teacher.html";},3000);
+                }
+                else{showMessage(data.error,'error')}
 
             } else {
                 const roll = document.getElementById('student-roll').value.trim();
                 const pass = document.getElementById('student-pass').value.trim();
                 const err = document.getElementById('student-error');
-
+                
                 if (!roll || !pass) {
                     err.textContent = 'Please fill in both fields.';
                     err.style.display = 'block';
                     return;
                 }
-
-                // TODO: Replace with your actual authentication logic / API call
-                err.style.display = 'none';
-                alert('Student login submitted! Connect to your backend here.');
+                
+                const body={
+                    roll,
+                    pass
+                }
+                const response=await fetch( 'http://localhost:3000/login_student',{
+                    method:"POST",
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(body)
+                })
+    
+                const data=await response.json()
+            
+                if(response.ok){
+                    showMessage(data.message,'success')
+                    setTimeout(()=>{window.location.href="student.html";},3000);
+                }
+                else{showMessage(data.error,'error')}
             }
         }
 
@@ -72,8 +117,8 @@
 
         const m=window.matchMedia("(max-width:768px)");
         function atag(e){
+            const d=document.getElementById('a-tag')
             if(e.matches){
-                d=document.getElementById('a-tag')
                 d.innerHTML=`<i class="fa-solid fa-arrow-left"></i>`
             }
             else{
@@ -82,3 +127,9 @@
         }
         atag(m)
         m.addEventListener("change",atag);
+
+
+    
+
+        
+   

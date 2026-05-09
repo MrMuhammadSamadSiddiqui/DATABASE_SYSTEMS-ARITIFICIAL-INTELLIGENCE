@@ -13,8 +13,7 @@ const port=process.env.PORT
 const url=process.env.URL
 const key=process.env.KEY
 
-console.log(process.env.URL)
-console.log(process.env.KEY)
+
 export const sb=createClient(
     url,
     key
@@ -32,7 +31,6 @@ app.post('/register',async(req,res)=>{
             has_sibling,
             siblings
         }=req.body
-
 
     const{data:grades,error:gradeerror}=await sb.from('grade_levels').select('id').ilike('name',education_board.trim()).maybeSingle()
     if(gradeerror){
@@ -102,6 +100,77 @@ for(let i=0;i<siblings.length;i++){
     return res.status(200).json({message:'Registration Successfull'})
 })
 
+
+app.post('/login_student',async(req,res)=>{
+    const{roll, pass}=req.body
+    const{data:std_data,error:std_error}=await sb.from('students').select('roll_no').eq('roll_no',roll).eq('password',pass).maybeSingle()
+    if(std_error){
+        return res.status(400).json({
+            error:std_error.message
+        })
+    }
+    if(!std_data){
+        return res.status(401).json({
+        error:"Invalid credentials"
+        })
+    }
+
+    return res.json({
+        message:"Login successful"
+    })
+})
+
+
+function correct_date(i){
+    const dat = new Date(i);
+    const months=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const formatted_date=String(dat.getDate()).padStart(2,'0')+ '-'+ months[dat.getMonth()]+ '-'+ dat.getFullYear();
+    return formatted_date
+}
+
+app.post('/login_teacher',async(req,res)=>{
+    const{id, pass}=req.body
+    const{data:std_data,error:std_error}=await sb.from('teachers').select('*').eq('id',id).eq('password',pass).maybeSingle()
+    if(std_error){
+        return res.status(400).json({
+            error:std_error.message
+        })
+    }
+    if(!std_data){
+        return res.status(401).json({
+        error:"Invalid credentials"
+        })
+    }
+
+std_data.created_at = correct_date(std_data.created_at);
+
+    return res.json({
+        message:"Login successful",
+        teacher:std_data
+    })
+})
+
+app.post('/teacher_courses',async (req,res)=>{
+    const{id}=req.body
+    const{data:course,error:course_error}=await sb.from("courses").select(`subject_id,created_at,student_count,subjects (id,name, grade_levels(id,name))`).eq('teacher_id', id).eq('is_published', true);
+    for(let i=0;i<course.length;i++){
+        course[i].created_at=correct_date(course[i].created_at)
+    }
+    
+    if(course_error){
+        return res.status(400).json({
+            error:std_error.message
+        })
+    }
+    if(course.length==0){
+        return res.status(401).json({
+            error:"No Course Assigned Yet"
+        })
+    }
+    else{
+        return res.json({data:course})
+    }
+})
 
 app.listen(port,()=>{
     console.log('Server is running on ',port)

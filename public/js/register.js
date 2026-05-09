@@ -1,6 +1,6 @@
    let siblingCount = 0;
-   
-       function showMessage(message,type='error'){
+
+    function showMessage(message,type='error'){
     const box =document.getElementById('msg-box')
     box.textContent = message
     box.className =`show ${type}`
@@ -12,7 +12,6 @@
     }
     setTimeout(()=>{box.classList.remove('show')},3000)
     }
-    
 
     // ── Toggle Custom Class ───────────────────────────
     function toggleCustomClass(value) {
@@ -167,6 +166,9 @@ window.removeSibling =removeSibling
 const data = await response.json()
 if(response.ok){showMessage(data.message,'success')}
 else{showMessage(data.error,'error')}});
+
+
+
 
 
 

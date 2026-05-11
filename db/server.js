@@ -109,7 +109,7 @@ for(let i=0;i<siblings.length;i++){
 
 app.post('/login_student',async(req,res)=>{
     const{roll, pass}=req.body
-    const{data:std_data,error:std_error}=await sb.from('students').select('roll_no').eq('roll_no',roll).eq('password',pass).maybeSingle()
+    const{data:std_data,error:std_error}=await sb.from('students').select('*').eq('roll_no',roll).eq('password',pass).maybeSingle()
     if(std_error){
         return res.status(400).json({
             error:std_error.message
@@ -120,10 +120,14 @@ app.post('/login_student',async(req,res)=>{
         error:"Invalid credentials"
         })
     }
+std_data.accepted_at = correct_date(std_data.accepted_at);
 
     return res.json({
-        message:"Login successful"
+        message:"Login successful",
+        student:std_data
     })
+
+
 })
 
 

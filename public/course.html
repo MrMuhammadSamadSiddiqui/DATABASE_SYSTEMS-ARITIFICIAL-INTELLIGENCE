@@ -21,12 +21,13 @@
         <!-- SIDEBAR -->
         <nav class="sidebar">
 
-            <!-- LOGO ONLY — no name -->
+            
             <div class="sidebar-header">
                 <img src="/public/assets/images/logo_white.png" alt="VEI Logo">
+                <h2>VEI NEXUS</h2>
             </div>
 
-            <!-- 4 OPTIONS -->
+            
             <ul class="nav-links">
                 <li class="info" onclick="clicked('info')">
                     <button>
@@ -53,37 +54,33 @@
                         MARKS
                     </button>
                 </li>
+                <li>
+                    <a href="#" onclick="goback()" class="back-btn">
+                        BACK
+                    </a>
+                </li>
+                
             </ul>
 
-            <!-- Back button at bottom -->
-            <div class="sidebar-footer">
-                <a href="#" onclick="goback()" class="back-btn">
-                    BACK
-                </a>
-            </div>
-
-        </nav>
-
-        <!-- CONTENT -->
-        <div class="content-container">
-
-            <!-- TOP BAR — logo left, course name + teacher right -->
-            <header class="top-header">
-                <div class="top-bar">
-                    <div class="course-identity">
-                        <span class="course-title"></span>
-                    </div>
-                    <div class="teacher-identity">
+            
+          <div class="section-name course_i">
+                <div class="course-identity">
+                    <span class="course-title"></span>
+                </div>
+                <div class="teacher-identity">
                         <span class="teacher-name"></span>
                         <span class="teacher-id"></span>
                     </div>
-                </div>
-            </header>
+            </div>
+        </nav>
 
-            <!-- MAIN CONTENT — changes based on sidebar tab -->
+        
+        <div class="content-container">
+
+        
             <div class="course-content">
 
-                <!-- ── MARKS SECTION ── -->
+                
                 <section class="course-section " id="section-marks">
                     <div class="section-header">
                         <button class="action-btn">+ ADD MARKS</button>
@@ -94,7 +91,7 @@
                 </section>
 
 
-                <!-- GENERAL -->
+                
 
 <section class="course-section" id="section-general">
 
@@ -135,21 +132,7 @@
 </section>
 
 
-                <!-- ── ATTENDANCE SECTION ── -->
-<!-- <section class="course-section" id="section-attendance">
 
-    <div class="section-header">
-        
-        <button class="action-btn" id="mark-today">
-            + MARK TODAY
-        </button>
-    </div>
-    <div class="nexus-card">
-        <table class="data-table" id="attendance-table">
-        </table>
-    </div>
-
-</section> -->
 
 <section class="course-section" id="section-attendance">
     <div class="section-header">
@@ -159,7 +142,6 @@
         </div>
     </div>
 
-    <!-- Date window navigation -->
     <div class="date-nav" id="dateNav" style="display:none;">
         <button class="date-nav-btn" id="prevWindow">&#8592;</button>
         <span class="date-window-label" id="windowLabel"></span>
@@ -201,14 +183,12 @@
             <input type="date" class="modal-input" id="customDateInput"/>
         </div>
         <div class="date-preview" id="datePreview">
-            <!-- shows selected date preview -->
         </div>
         <button class="action-btn modal-submit" id="confirmDateBtn">ADD</button>
 
     </div>
 </div>
 
-<!-- Delete Date Confirm Modal -->
 <div class="modal-overlay" id="deleteDateOverlay">
     <div class="post-modal">
         <div class="modal-header">
@@ -238,7 +218,6 @@
 </div>
 </section>
 
-                <!-- ── STUDENTS SECTION ── -->
                 <section class="course-section" id="section-students">
                     <div class="section-header">
                         
@@ -266,7 +245,6 @@
                 </div>
             </section>
 
-                <!-- ── INFO SECTION ── -->
                 <section class="course-section " id="section-info">
                 
                     <div class="nexus-card general-info">

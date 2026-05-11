@@ -73,6 +73,61 @@ a, button {
 
 }
 
+.section-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+      /* margin-top: auto; */
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 20px;
+    /* background-color: red; */
+    
+
+}
+
+.course-list{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.course_i{
+    gap: 0.7rem;
+}
+
+.course-identity{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* background-color: yellow; */
+    
+    
+}
+.course-identity>span{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.teacher-identity{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.teacher-identity>span{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
 /* ============================================
    SIDEBAR
    ============================================ */
@@ -84,14 +139,37 @@ a, button {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    height:100vh;
+    height: 100vh;
+    overflow-y: auto;        /* ← sidebar scrolls independently */
+    overflow-x: hidden;      /* ← no horizontal scroll */
     
+    gap: 3rem;
+    justify-items: space-between;    
+    align-items: center;
+}
+
+/* Chrome/Safari scrollbar — thin and themed */
+.sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(94, 203, 240, 0.15);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(94, 203, 240, 0.3);
 }
 
 /* Logo + title */
 .sidebar-header {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     /* text-align: center; */
     justify-items: center;
@@ -100,32 +178,31 @@ a, button {
     border-color: rgba(94, 203, 240, 0.1);
     /* background-color: pink; */
     
-    
+    padding-bottom: 1rem;
     
 }
 
+
 .sidebar-header img {
-    /* background-color: green; */
-    width: 8vw;
+    width: 60px; 
     filter: drop-shadow(0 0 10px var(--bright));
     
 }
 
 .sidebar-header h2 {
-    
-    /* background-color: red; */
-    font-family: 'Orbitron';
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     color: var(--text);
-      margin:0;
+    
 }
+
 
 /* Nav links */
 .nav-links {
     list-style: none;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -176,7 +253,6 @@ a, button {
 /* Teacher info + logout — bottom of sidebar */
 .sidebar-footer {
     margin-top: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -218,6 +294,7 @@ a, button {
     width: 15vw; 
     text-align: center;
     transition: color 0.3s, border-color 0.3s, background 0.3s, text-shadow 0.3s;
+    
 }
 
 .logout-btn:hover {
@@ -334,6 +411,9 @@ a, button {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0;
+    padding: 1.5rem 1.5rem;
+    width: 70%;
     gap: 20px;
 }
 
@@ -513,7 +593,8 @@ a, button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 0;
+    padding: 1rem 0;
+    
     border-bottom: 1px solid rgba(94, 203, 240, 0.06);
 }
 

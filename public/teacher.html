@@ -6,7 +6,6 @@
     <title>Teacher Dashboard — VEI NEXUS</title>
     <link rel="stylesheet" href="/public/css/index.css">
     <link rel="stylesheet" href="/public/css/teacher.css">
-    <script type="module" src="/public/js/script.js" defer></script>
     <script src="/public/js/teacher.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
 </head>
@@ -14,8 +13,7 @@
     <div class="bg_grid"></div>
     <div class="bg_watermark"></div>
 
-      <div id="cursor"></div>
-    <div id="ring"></div>
+
 
     <div class="dashboard-wrapper">
 
@@ -23,23 +21,29 @@
         <nav class="sidebar" >
             <div class="sidebar-header">
                 <img src="/public/assets/images/logo_white.png" alt="VEI Logo">
-                <!-- <h2>VEI NEXUS</h2> -->
+                <h2>VEI NEXUS</h2>
             </div>
 
             <ul class="nav-links" >
                 <li><button class="profile_btn" onclick="showsection('profile')">PROFILE</button></li>
                 <li><button class="course_btn" onclick="showsection('courses')" >COURSES</button></li>
+                <li><a href="#" onclick="logout()" class="logout-btn">LOGOUT</a></li>
             </ul>
 
             <!-- Logout pushed to bottom -->
-            <div class="section">
-                <a href="#" onclick="logout()" class="logout-btn">LOGOUT</a>
+             
+            
+            
+            <div class="section-name">
+                
+                <span class="teacher-name"></span>
+                <span class="teacher-id"></span>
             </div>
         </nav>
 
         <div class="parent">
-
-            <header class="top-header">
+            
+            <!-- <header class="top-header">
                 <div class="top-bar">
                     <span class="page-label">DASHBOARD</span>
                     <div class="teacher-identity">
@@ -47,7 +51,7 @@
                         <span class="teacher-id"></span>
                     </div>
                 </div>
-            </header>
+            </header> -->
             <!-- RIGHT CONTENT -->
             <div class=" content-container" >
     
@@ -59,13 +63,7 @@
                         <div class="course-list">
                             
     
-                            <!-- <div class="nexus-card course-item">
-                                <div class="card-details">
-                                    <h4>A-Level Physics</h4>
-                                    <p>18 Students Enrolled</p>
-                                </div>
-                                <button class="action-btn">MANAGE COURSE</button>
-                            </div> -->
+                           
                         </div>
                         <div id="course_not" class="not_available">
                             <p>NO COURSES ASSIGNED</p>

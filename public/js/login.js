@@ -51,6 +51,7 @@ function selectRole(role) {
                 const data=await response.json()
             
                 if(response.ok){
+                    localStorage.clear()
                     localStorage.setItem('teacher',JSON.stringify(data.teacher));
                     showMessage(data.message,'success')
                     setTimeout(()=>{window.location.href="teacher.html";},3000);
@@ -83,6 +84,8 @@ function selectRole(role) {
                 const data=await response.json()
             
                 if(response.ok){
+                    localStorage.clear()
+                    localStorage.setItem('student',JSON.stringify(data.student));
                     showMessage(data.message,'success')
                     setTimeout(()=>{window.location.href="student.html";},3000);
                 }

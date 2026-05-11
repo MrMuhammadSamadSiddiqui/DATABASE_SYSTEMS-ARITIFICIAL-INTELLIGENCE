@@ -6,7 +6,7 @@
     --navy: #1F2B3A;
     --slate: #91A8C3;
     --teal: #023141;
-    --midnight: #0A111E; /* Deeper midnight */
+    --midnight: #0A111E; 
     --text: #E8F1FA;
     --bright: #5ECBF0;
     --glow: rgba(94, 203, 240, 0.18);
@@ -14,9 +14,18 @@
 }
 *{
     font-family: Syne;
+    
 }
 
-/* ── Section visibility ── */
+nav > div:nth-child(1) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 1.5em;
+    width: auto;
+}
+
 .course-section        { display: none; }
 .course-section.active-section { display: block; }
 
@@ -26,7 +35,6 @@
     overflow-y: auto;
 }
 
-/* ── Section header row ── */
 .section-header {
     display: flex;
     align-items: center;
@@ -43,12 +51,11 @@
     color: var(--greyish);
 }
 
-/* ── Course identity (top bar left) ── */
-.course-identity {
+/* .course-identity {
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
+} */
 
 .course-title {
     font-family: 'Orbitron';
@@ -65,7 +72,6 @@
     color: var(--greyish);
 }
 
-/* ── Data Table ── */
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -107,7 +113,6 @@
 .attendance-good { color: #4ade80 !important; font-weight: 600; }
 .attendance-warn { color: #facc15 !important; font-weight: 600; }
 
-/* ── Students Grid ── */
 .students-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -156,17 +161,14 @@
     color: var(--greyish);
 }
 
-/* ── General info rows ── */
 .general-info {
-    /* max-width: 560px; */
     width: 100%;
     
     
 }
 
 #section-general{
-    /* background-color: red; */
-    /* display: flex; */
+
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -205,7 +207,6 @@
     font-family: 'Orbitron';
 }
 
-/* ── Count badge ── */
 .count-badge {
     font-family: 'Orbitron';
     font-size: 0.6rem;
@@ -217,7 +218,6 @@
     background: rgba(94, 203, 240, 0.05);
 }
 
-/* ── Back button ── */
 .back-btn {
    display: block;
     text-decoration: none;
@@ -551,7 +551,6 @@
 
 
 
-/* ── Attendance ── */
 .att-controls {
     display: flex;
     align-items: center;
@@ -581,7 +580,6 @@
     box-shadow: 0 0 16px rgba(74, 222, 128, 0.25);
 }
 
-/* Date window navigation */
 .date-nav {
     display: flex;
     align-items: center;
@@ -610,7 +608,6 @@
     color: var(--greyish);
 }
 
-/* Card + scroll */
 .att-card { padding: 0; overflow: hidden; }
 
 .att-scroll {
@@ -618,7 +615,6 @@
     padding: 22px;
 }
 
-/* Table */
 .att-table {
     width: 100%;
     border-collapse: collapse;
@@ -654,7 +650,6 @@
     background: rgba(94, 203, 240, 0.02);
 }
 
-/* Student name cell */
 .att-student-name {
     font-family: 'Syne';
     font-size: 0.82rem;
@@ -663,7 +658,6 @@
     letter-spacing: 0.04em;
 }
 
-/* Attendance cell button */
 .att-cell {
     width: 34px;
     height: 34px;
@@ -687,7 +681,6 @@
     background: rgba(94, 203, 240, 0.1);
 }
 
-/* Absent state */
 .att-cell.absent {
     background: rgba(255, 77, 77, 0.12);
     border-color: rgba(255, 77, 77, 0.35);
@@ -698,7 +691,6 @@
     background: rgba(255, 77, 77, 0.2);
 }
 
-/* Empty state */
 .att-empty {
     display: none;
     flex-direction: column;
@@ -721,10 +713,6 @@
     opacity: 0.5;
 }
 
-/* DATE MODAL  */
-
-
-/* ── Date Modal extras ── */
 .date-modal-options {
     display: flex;
     gap: 8px;
@@ -826,3 +814,7 @@ input[type="date"].modal-input {
 .post-time{
     font-size: 0.8rem;
 }
+
+
+
+

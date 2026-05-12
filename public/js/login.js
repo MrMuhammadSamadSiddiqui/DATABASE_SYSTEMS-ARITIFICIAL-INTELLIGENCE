@@ -18,7 +18,6 @@ function selectRole(role) {
 
         function goBack() {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            // clear errors
             document.getElementById('teacher-error').style.display = 'none';
             document.getElementById('student-error').style.display = 'none';
             document.getElementById('step-role').classList.add('active');
@@ -93,7 +92,6 @@ function selectRole(role) {
             }
         }
 
-        // Allow pressing Enter to submit
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const teacherStep = document.getElementById('step-teacher');

@@ -291,7 +291,7 @@ async function clicked(j){
 }
 
 
-// ── Attendance System ── COMPLETE HEAVY AI BASED JS, EXCEPT DB. 
+
 
 async function set_std() {
     let students = [];
@@ -311,7 +311,6 @@ async function set_std() {
     let windowStart = 0;
     let dirty = false;
 
-    // ── DB INTEGRATION POINT 1 — Load existing attendance ──
     const response = await fetch(`${BASE}/load_attendance`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
@@ -323,46 +322,37 @@ async function set_std() {
         showMessage(data.error, 'error');
     }
 
-    // Initialize attendance object for each student first
     students.forEach(s => attendance[s.student_roll_no] = {});
 
-    // ── POPULATE dates[] and attendance{} from DB response ──
-    // data.data format: [{ student_roll_no, status, attendance_date: 'YYYY-MM-DD' }]
+
     if (response.ok && data.data && data.data.length > 0) {
 
         data.data.forEach(record => {
-            // attendance_date comes as 'YYYY-MM-DD', convert to key 'DD-MM-YYYY'
             const [year, month, day] = record.attendance_date.split('-');
             const key = `${day}-${month}-${year}`;
 
-            // build label: '11 MAY 2026'
             const dateObj = new Date(`${year}-${month}-${day}`);
             const monthName = dateObj.toLocaleString('en', { month: 'short' }).toUpperCase();
             const label = `${day} ${monthName} ${year}`;
 
-            // add to dates array if not already there
             if (!dates.find(d => d.key === key)) {
                 dates.push({ label, key });
             }
 
-            // populate attendance — 'P' means present, 'A' means absent
             if (attendance[record.student_roll_no] !== undefined) {
                 attendance[record.student_roll_no][key] = record.status === 'A' ? 'absent' : 'present';
             }
         });
 
-        // sort dates chronologically oldest → newest
         dates.sort((a, b) => {
             const [d1, m1, y1] = a.key.split('-');
             const [d2, m2, y2] = b.key.split('-');
             return new Date(`${y1}-${m1}-${d1}`) - new Date(`${y2}-${m2}-${d2}`);
         });
 
-        // start on the last window so teacher sees most recent dates
         windowStart = Math.max(0, dates.length - COLS_PER_WINDOW);
     }
 
-    // ── Elements ──
     const attHeaderRow     = document.getElementById('attHeaderRow');
     const attBody          = document.getElementById('attBody');
     const attEmpty         = document.getElementById('attEmpty');
@@ -373,7 +363,6 @@ async function set_std() {
     const saveAttBtn       = document.getElementById('saveAttBtn');
     const addDateBtn       = document.getElementById('addDateBtn');
 
-    // ── Add Date Modal elements ──
     const dateModalOverlay = document.getElementById('dateModalOverlay');
     const closeDateModal   = document.getElementById('closeDateModal');
     const useTodayBtn      = document.getElementById('useTodayBtn');
@@ -383,7 +372,6 @@ async function set_std() {
     const datePreview      = document.getElementById('datePreview');
     const confirmDateBtn   = document.getElementById('confirmDateBtn');
 
-    // ── Delete Date Modal elements ──
     const deleteDateOverlay = document.getElementById('deleteDateOverlay');
     const closeDeleteModal  = document.getElementById('closeDeleteModal');
     const cancelDeleteBtn   = document.getElementById('cancelDeleteBtn');
@@ -393,10 +381,7 @@ async function set_std() {
     let useToday = true;
     let pendingDeleteKey = null;
 
-    // ════════════════════════════════
-    // ADD DATE MODAL
-    // ════════════════════════════════
-
+   
     addDateBtn.addEventListener('click', () => {
         useToday = true;
         useTodayBtn.classList.add('active');
@@ -437,12 +422,10 @@ async function set_std() {
 
     customDateInput.addEventListener('change', updateDatePreview);
 
-    // ── Prevent 4+ digit year in date input ──
     customDateInput.addEventListener('input', () => {
         if (!customDateInput.value) return;
         const [year] = customDateInput.value.split('-');
         if (year && year.length > 4) {
-            // trim year to 4 digits and reassemble
             const parts = customDateInput.value.split('-');
             parts[0] = parts[0].slice(0, 4);
             customDateInput.value = parts.join('-');
@@ -458,7 +441,6 @@ async function set_std() {
             dateObj = new Date(customDateInput.value);
         }
 
-        // ── YEAR GUARD — block anything outside 2000–2099 ──
         const year = dateObj.getFullYear();
         if (year < 2000 || year > 2099) {
             datePreview.innerHTML = `<p class="date-error">Please enter a valid year (2000–2099).</p>`;
@@ -490,7 +472,6 @@ async function set_std() {
             dateObj = new Date(customDateInput.value);
         }
 
-        // ── YEAR GUARD on confirm too — double safety ──
         const year = dateObj.getFullYear();
         if (year < 2000 || year > 2099) {
             datePreview.innerHTML = `<p class="date-error">Please enter a valid year (2000–2099).</p>`;
@@ -509,10 +490,8 @@ async function set_std() {
             return;
         }
 
-        // ── DATA WRITE: new date pushed to dates array ──
         dates.push({ label, key });
 
-        // ── DATA WRITE: all students defaulted to present for this date ──
         students.forEach(s => { attendance[s.student_roll_no][key] = 'present'; });
 
         windowStart = Math.max(0, dates.length - COLS_PER_WINDOW);
@@ -520,10 +499,6 @@ async function set_std() {
         markDirty();
         closeDModal();
     });
-
-    // ════════════════════════════════
-    // DELETE DATE MODAL
-    // ════════════════════════════════
 
     closeDeleteModal.addEventListener('click', closeDeleteModal_fn);
     cancelDeleteBtn.addEventListener('click', closeDeleteModal_fn);
@@ -541,11 +516,9 @@ async function set_std() {
 
         const key = pendingDeleteKey;
 
-        // ── DATA WRITE: remove from dates array ──
         const idx = dates.findIndex(x => x.key === key);
         if (idx !== -1) dates.splice(idx, 1);
 
-        // ── DATA WRITE: remove from every student's record ──
         students.forEach(s => delete attendance[s.student_roll_no][key]);
 
         windowStart = Math.max(0, Math.min(windowStart, dates.length - COLS_PER_WINDOW));
@@ -554,10 +527,6 @@ async function set_std() {
         renderTable();
         markDirty();
     });
-
-    // ════════════════════════════════
-    // NAVIGATION
-    // ════════════════════════════════
 
     prevBtn.addEventListener('click', () => {
         windowStart = Math.max(0, windowStart - COLS_PER_WINDOW);
@@ -568,10 +537,6 @@ async function set_std() {
         windowStart = Math.min(dates.length - COLS_PER_WINDOW, windowStart + COLS_PER_WINDOW);
         renderTable();
     });
-
-    // ════════════════════════════════
-    // RENDER TABLE
-    // ════════════════════════════════
 
     function renderTable() {
         const hasStudents = students.length > 0;
@@ -605,7 +570,6 @@ async function set_std() {
         const to   = Math.min(windowStart + COLS_PER_WINDOW, dates.length);
         windowLabel.textContent = `${from} – ${to} OF ${dates.length}`;
 
-        // Header
         attHeaderRow.innerHTML = '<th class="att-name-col">STUDENT</th>';
         visibleDates.forEach(d => {
             const th = document.createElement('th');
@@ -623,7 +587,6 @@ async function set_std() {
             attHeaderRow.appendChild(th);
         });
 
-        // Body
         attBody.innerHTML = '';
         students.forEach(s => {
             const tr = document.createElement('tr');
@@ -659,10 +622,6 @@ async function set_std() {
             attBody.appendChild(tr);
         });
     }
-
-    // ════════════════════════════════
-    // DIRTY STATE & SAVE
-    // ════════════════════════════════
 
     function markDirty() {
         dirty = true;

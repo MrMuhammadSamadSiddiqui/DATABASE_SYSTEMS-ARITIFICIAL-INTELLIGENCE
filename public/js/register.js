@@ -13,7 +13,6 @@
     setTimeout(()=>{box.classList.remove('show')},3000)
     }
 
-    // ── Toggle Custom Class ───────────────────────────
     function toggleCustomClass(value) {
       const container = document.getElementById('custom-class-container');
       const input = document.getElementById('custom_class_input');
@@ -27,7 +26,6 @@
       }
     }
 
-    // ── Toggle Siblings (Working Fix) ──────────────────
     function toggleSiblings(show) {
       const container = document.getElementById('siblings-container');
       const hiddenInput = document.getElementById('has_sibling');
@@ -48,7 +46,6 @@
       }
     }
 
-    // ── Add Sibling Row ───────────────────────────────
     function addSibling() {
       if (siblingCount >= 5) return;
       siblingCount++;
@@ -127,7 +124,6 @@ window.removeSibling =removeSibling
     }
 
 
-    // ── Form Submission ───────────────────────────────
     document.getElementById('reg-form').addEventListener('submit',async function(e) {
       e.preventDefault()
 
